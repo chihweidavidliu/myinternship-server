@@ -1,7 +1,7 @@
-const requireLogin = (req, res, next) => {
+const requireStudentAuth = (req, res, next) => {
   if (!req.user) {
     return res.status(401).send({ error: "You must login" });
   }
   next();
 }
-module.exports = requireLogin;
+module.exports = requireStudentAuth;

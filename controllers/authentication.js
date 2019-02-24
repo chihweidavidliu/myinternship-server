@@ -1,15 +1,16 @@
 const User = require("../models/user");
+const Admin = require("../models/admin");
 
-exports.signup = async (req, res, next) => {
+exports.studentSignup = async (req, res, next) => {
   console.log(req.body);
   const studentid = req.body.studentid;
   const password = req.body.password;
   const name = req.body.name;
   const department = req.body.department;
 
-  const existingUser = await User.findOne({ studentid: studentid })
+  const existingUser = await User.findOne({ studentid: studentid });
 
-  if(existingUser) {
+  if (existingUser) {
     return res.status(400).send({ message: "studentid is in use" });
   }
 
@@ -20,8 +21,32 @@ exports.signup = async (req, res, next) => {
     name: name
   }).save();
 
-  req.login(newUser, function(err) {
-    if (err) { return next(err); }
+  req.login(newUser, (err) => {
+    if (err) {
+      return next(err);
+    }
+    next();
+  });
+};
+
+exports.adminSignup = async (req, res, next) => {
+  const username = req.body.username;
+  const password = req.body.password;
+
+  const existingAdmin = await Admin.findOne({ username: username });
+  if (existingAdmin) {
+    return res.status(400).send({ message: "username is in use" });
+  }
+
+  const newAdmin = await new Admin({
+    username: username,
+    password: password
+  }).save();
+
+  req.login(newAdmin, (err) => {
+    if (err) {
+      return next(err);
+    }
     next();
   });
 };
