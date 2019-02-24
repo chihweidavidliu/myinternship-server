@@ -20,6 +20,10 @@ module.exports = function(app) {
     res.send(req.user);
   });
 
+  app.get("/api/current_user", requireStudentAuth, (req, res) => {
+    res.send(req.user);
+  });
+
   // admin auth routes
   app.post("/admin/signup", Authentication.adminSignup, (req, res, next) => {
     res.send(req.user);
@@ -29,16 +33,12 @@ module.exports = function(app) {
     res.send(req.user);
   });
 
+  app.get("/api/current_admin", requireAdminAuth, (req, res) => {
+    res.send(req.user);
+  });
+
   app.get("/logout", (req, res) => {
     req.logout();
     res.redirect("/");
-  });
-
-  app.get("/api/current_user", requireStudentAuth, (req, res) => {
-    res.send(req.user);
-  });
-
-  app.get("/api/current_admin", requireAdminAuth, (req, res) => {
-    res.send(req.user);
   });
 };

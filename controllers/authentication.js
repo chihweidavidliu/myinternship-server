@@ -33,9 +33,9 @@ exports.adminSignup = async (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
 
-  const existingAdmin = await Admin.findOne({ username: username });
-  if (existingAdmin) {
-    return res.status(400).send({ message: "username is in use" });
+  const admins = await Admin.find({});
+  if(admins.length > 0) {
+    res.status(400).send("There is already an admininistrative account set");
   }
 
   const newAdmin = await new Admin({
