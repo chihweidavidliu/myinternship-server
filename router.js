@@ -9,14 +9,11 @@ const requireStudentAuth = require("./middleware/requireStudentAuth");
 const requireAdminAuth = require("./middleware/requireAdminAuth");
 
 module.exports = function(app) {
-  app.get("/", (req, res, next) => {
-    res.send("Hi there");
-  });
-  app.post("/signup", Authentication.studentSignup, (req, res, next) => {
+  app.post("/auth/signup", Authentication.studentSignup, (req, res, next) => {
     res.send(req.user);
   });
 
-  app.post("/signin", requireStudentLogin, (req, res, next) => {
+  app.post("/auth/signin", requireStudentLogin, (req, res, next) => {
     res.send(req.user);
   });
 
@@ -25,11 +22,11 @@ module.exports = function(app) {
   });
 
   // admin auth routes
-  app.post("/admin/signup", Authentication.adminSignup, (req, res, next) => {
+  app.post("/auth/admin/signup", Authentication.adminSignup, (req, res, next) => {
     res.send(req.user);
   });
 
-  app.post("/admin/signin", requireAdminLogin, (req, res, next) => {
+  app.post("/auth/admin/signin", requireAdminLogin, (req, res, next) => {
     res.send(req.user);
   });
 
@@ -37,7 +34,7 @@ module.exports = function(app) {
     res.send(req.user);
   });
 
-  app.get("/logout", (req, res) => {
+  app.get("/auth/logout", (req, res) => {
     req.logout();
     res.redirect("/");
   });

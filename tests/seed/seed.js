@@ -24,11 +24,13 @@ const users = [{
 }]
 
 
-const admins = {
+const admin = {
   _id: adminId,
   username: "admin",
   password: "1521993",
-  companyChoices: { Apple: ["Jen", "Chih-Wei"] }
+  companyChoices: { Apple: ["Jen", "Chih-Wei"] },
+  allowStudentSignup: true,
+  auth: "admin"
 }
 
 const populateUsers = (done) => {
@@ -41,18 +43,18 @@ const populateUsers = (done) => {
     })
   })
 }
-//
-// const populateAdmins = (done) => {
-//   Admin.deleteMany({}).then(() => {
-//     let admin = new Admin(admins).save();
-//   }).then(() => {
-//     done();
-//   })
-// }
+
+const populateAdmins = (done) => {
+  Admin.deleteMany({}).then(() => {
+    let admin = new Admin(admins).save();
+  }).then(() => {
+    done();
+  })
+}
 
 module.exports = {
   users: users,
   populateUsers: populateUsers,
-  // populateAdmins: populateAdmins,
-  // admins: admins,
+  populateAdmins: populateAdmins,
+  admin: admin,
 }

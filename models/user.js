@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
-const bcrypt = require("bcryptjs")
+const bcrypt = require("bcryptjs");
+const _ = require("lodash");
 const Schema = mongoose.Schema;
 const jwt = require("jwt-simple");
 
@@ -64,6 +65,15 @@ userSchema.statics.findByCredentials = function(studentid, password, done) {
     })
   })
 }
+
+userSchema.methods.toJSON = function() {
+  // redefine toJSON method used when using send() to leave off sensitive information
+  let admin = this;
+  let adminObject = admin.toObject();
+
+  return _.pick(adminObject, ["_id", "studentid", "name", "department", "choices"]);
+};
+
 
 //mongoose middleware (use the .pre() method on schema to set middleware)
 userSchema.pre("save", function(next) { // this will hash all passwords every time a password is set or modified
