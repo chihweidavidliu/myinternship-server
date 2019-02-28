@@ -8,10 +8,9 @@ const { ObjectID } = require("mongodb");
 const mongoose = require("mongoose");
 const User = require("../models/user.js");
 const Admin = require("../models/admin.js");
-const { users, populateUsers, admins, populateAdmins } = require("./seed/seed.js");
+const { users, populateUsers, admins } = require("./seed/seed.js");
 
 beforeEach(populateUsers);
-beforeEach(populateAdmins);
 
 describe("POST auth/signup", () => {
   it("should save a new user and respond with 200 and the user", (done) => {
@@ -46,7 +45,7 @@ describe("POST auth/signin", () => {
   it("should signin an existing user and respond with 200 and the user", (done) => {
     agent
       .post("/auth/signin")
-      .send({ studentid: "12345", password: "password"})
+      .send({ studentid: "12345", password: "password" })
       .expect(200)
       .expect((res) => {
         expect(res.body.studentid).toBe("12345");
@@ -60,7 +59,7 @@ describe("POST auth/signin", () => {
   it("should send 'Unauthorized' if user details not valid", (done) => {
     request(app)
       .post("/auth/signin")
-      .send({ studentid: "12345", password: "p"})
+      .send({ studentid: "12345", password: "p" })
       .expect((res) => {
         expect(res.text).toContain("Unauthorized");
       })
@@ -84,7 +83,6 @@ describe("GET /api/current_user", () => {
   });
 });
 
-
 describe("GET /api/logout", () => {
   it("should log user out", (done) => {
     agent
@@ -94,17 +92,81 @@ describe("GET /api/logout", () => {
   });
 });
 
-
 // ADMIN ROUTES
-// describe("POST /auth/admin/signin", () => {
-//   it("should sign in admin", (done) => {
-//     request(app)
-//       .post("/auth/admin/signin")
-//       .send({ username: "admin", password: "1521993"})
-//       .expect(200)
-//       .expect((res) => {
-//         expect(res.body.username).toBe("admin");
-//       })
-//       .end(done)
-//   })
-// })
+
+// clear admin from previous tests
+const deleteAdmins = (done) => {
+  Admin.deleteMany({}).then(() => {
+    done();
+  });
+};
+
+// create admin again
+describe("POST /auth/admin/signup", () => {
+  beforeEach(deleteAdmins);
+
+  it("should create a new admin", (done) => {
+    request(app)
+      .post("/auth/admin/signup")
+      .send({ username: "admin", password: "1521993" })
+      .expect(200)
+      .end((err, res) => {
+        Admin.findOne({ username: "admin" })
+          .then((admin) => {
+            expect(admin).toBeTruthy();
+            expect(admin.username).toBe("admin");
+            done();
+          })
+          .catch((err) => done(err));
+      });
+  });
+});
+
+it("should not allow creation of second admin", (done) => {
+  request(app)
+    .post("/auth/admin/signup")
+    .send({ username: "admin2", password: "1521993" })
+    .expect(400)
+    .end(done);
+});
+
+describe("POST /auth/admin/signin", () => {
+  it("should sign in admin", (done) => {
+    agent
+      .post("/auth/admin/signin")
+      .send({ username: "admin", password: "1521993" })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.username).toBe("admin");
+      })
+      .end(done);
+  });
+});
+
+describe("GET /api/current_admin", () => {
+  it("should get current admin", (done) => {
+    agent
+      .get("/api/current_admin")
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.username).toBe("admin");
+      })
+      .end(done);
+  });
+
+  it("shouldn't let unauthorised user get admin details", (done) => {
+    request(app)
+      .get("/api/current_admin")
+      .expect(401)
+      .end(done);
+  });
+});
+
+describe("GET /api/logout", () => {
+  it("should log admin out", (done) => {
+    agent
+      .get("/auth/logout")
+      .expect(302)
+      .end(done);
+  });
+});

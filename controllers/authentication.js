@@ -39,7 +39,6 @@ exports.sendWelcomeEmail = (req, res, next) => {
 };
 
 exports.studentSignup = async (req, res, next) => {
-  console.log(req.body);
   const studentid = req.body.studentid;
   const password = req.body.password;
   const name = req.body.name;
