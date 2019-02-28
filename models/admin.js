@@ -25,6 +25,10 @@ let AdminSchema = new mongoose.Schema({
     type: Boolean,
     default: true
   },
+  allowStudentChoices: {
+    type: Boolean,
+    default: false
+  },
   auth: {
     type: String,
     default: "admin"
@@ -57,7 +61,7 @@ AdminSchema.methods.toJSON = function() {
   let admin = this;
   let adminObject = admin.toObject();
 
-  return _.pick(adminObject, ["_id", "username", "companyChoices", "allowStudentSignup", "auth"]);
+  return _.pick(adminObject, ["_id", "username", "companyChoices", "allowStudentSignup", "allowStudentChoices", "auth"]);
 };
 
 AdminSchema.pre("save", function(next) {

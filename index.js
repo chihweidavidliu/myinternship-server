@@ -36,6 +36,15 @@ const urlencodedParser = bodyParser.urlencoded({ extended: false }) // parse req
 app.use(express.static("public")); // middleware that sets up static directory in a folder of your choice - for your pages which don't need to be loaded dynamically
 router(app); // call our router with app
 
+// if (process.env.NODE_ENV === "production") {
+//   // Express will serve up production assets like main.js or main.css
+//   app.use(express.static("myinternship-react-client/build"));
+//   // Express will serve up the index.html file if it doesn't recognise the route
+//   const path = require("path");
+//   app.get("*", (req, res) => {
+//     res.sendFile(path.resolve(__dirname, "myinternship-react-client", "build", "index.html"));
+//   });
+// }
 
 // Database setup
 mongoose.Promise = global.Promise; // tell mongoose to use native promise functionality

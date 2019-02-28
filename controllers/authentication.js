@@ -1,6 +1,43 @@
 const User = require("../models/user");
 const Admin = require("../models/admin");
 
+const nodemailer = require("nodemailer");
+
+exports.sendWelcomeEmail = (req, res, next) => {
+  // don't send email when testing
+  if(proces.env.NODE_ENV === "test") { return next() }
+
+  const transporter = nodemailer.createTransport({
+    service: "gmail",
+    auth: {
+      user: "chihweiliu1993@gmail.com",
+      pass: process.env.EMAIL_PASSWORD
+    }
+  });
+
+  const mailOptions = {
+    from: "chihweiliu1993@gmail.com",
+    to: "chihweiliu1993@gmail.com",
+    subject: "Your Myinternship sign-in credentials",
+    html: `Dear ${req.body["name"]},
+    <p>Thank you for signing up to Myinternship.<br>
+    Here are your sign-in credentials. Please keep them safe.<br>
+    <p>Your <strong>studentid</strong> is ${req.body["studentid"]}<br>
+    Your <strong>password</strong> is ${req.body["password"]}<br></p></p>
+      <br>
+      From the Myinternship Team`
+  };
+
+  transporter.sendMail(mailOptions, function(error, info) {
+    if (error) {
+      next(errors);
+    } else {
+      console.log("Email sent: " + info.response);
+      next();
+    }
+  });
+};
+
 exports.studentSignup = async (req, res, next) => {
   console.log(req.body);
   const studentid = req.body.studentid;
@@ -25,6 +62,8 @@ exports.studentSignup = async (req, res, next) => {
     if (err) {
       return next(err);
     }
+    // send user
+    res.send(req.user);
     next();
   });
 };

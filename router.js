@@ -9,9 +9,7 @@ const requireStudentAuth = require("./middleware/requireStudentAuth");
 const requireAdminAuth = require("./middleware/requireAdminAuth");
 
 module.exports = function(app) {
-  app.post("/auth/signup", Authentication.studentSignup, (req, res, next) => {
-    res.send(req.user);
-  });
+  app.post("/auth/signup", Authentication.studentSignup, Authentication.sendWelcomeEmail);
 
   app.post("/auth/signin", requireStudentLogin, (req, res, next) => {
     res.send(req.user);

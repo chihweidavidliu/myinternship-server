@@ -1,6 +1,6 @@
 const {ObjectID} = require('mongodb');
-const {User} = require('./../../models/user.js');
-// const {Admin} = require('./../../models/admin.js');
+const User = require('./../../models/user.js');
+const Admin = require('./../../models/admin.js');
 
 const userOneId = new ObjectID();
 const userTwoId = new ObjectID();
@@ -24,13 +24,10 @@ const users = [{
 }]
 
 
-const admin = {
+const admins = {
   _id: adminId,
   username: "admin",
   password: "1521993",
-  companyChoices: { Apple: ["Jen", "Chih-Wei"] },
-  allowStudentSignup: true,
-  auth: "admin"
 }
 
 const populateUsers = (done) => {
@@ -56,5 +53,5 @@ module.exports = {
   users: users,
   populateUsers: populateUsers,
   populateAdmins: populateAdmins,
-  admin: admin,
+  admins: admins,
 }

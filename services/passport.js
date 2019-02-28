@@ -56,7 +56,7 @@ passport.use("student-local", studentLocalLogin);
 const adminOptions = {
   usernameField: "username"
 };
-const adminLocalLogin = new LocalStrategy(adminOptions, async (username, password, done) => {
+const adminLocalLogin = new LocalStrategy(adminOptions, (username, password, done) => {
   Admin.findByCredentials(username, password)
     .then((user) => done(null, user))
     .catch((err) => done(err, false));
