@@ -52,11 +52,14 @@ mongoose.connect(process.env.MONGODB_URI).catch((err) => {console.log('There was
 
 // Server setup
 const port = process.env.PORT;
-app.listen(port, () => {
+
+// assigning app.listen to variable allows us to call .close() method on it. Export this to test suite to end all connections after testing
+const server = app.listen(port, () => {
   console.log(`Listening to port ${port}`);
 });
 
 
 module.exports = {
-  app: app
+  app: app,
+  server: server
 }

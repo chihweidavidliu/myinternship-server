@@ -28,6 +28,13 @@ const admins = {
   _id: adminId,
   username: "admin",
   password: "1521993",
+  companyChoices: {
+    Google: { numberAccepted: 3, choices: [] },
+    Apple: { numberAccepted: 3, choices: [] },
+  },
+  allowStudentChoices: true,
+  allowStudentSignup: true,
+  auth: "admin"
 }
 
 const populateUsers = (done) => {

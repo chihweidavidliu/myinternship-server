@@ -70,15 +70,30 @@ exports.studentSignup = async (req, res, next) => {
 exports.adminSignup = async (req, res, next) => {
   const username = req.body.username;
   const password = req.body.password;
+  let allowStudentChoices;
+  if(req.body.allowStudentChoices) {
+    allowStudentChoices = req.body.allowStudentChoices;
+  } else {
+    allowStudentChoices = false;
+  }
+
+  let companyChoices;
+  if(req.body.companyChoices) {
+    companyChoices = req.body.companyChoices;
+  } else {
+    companyChoices = [];
+  }
 
   const admins = await Admin.find({});
   if(admins.length > 0) {
-    res.status(400).send("There is already an admininistrative account set");
+    return res.status(400).send("There is already an admininistrative account set");
   }
 
   const newAdmin = await new Admin({
     username: username,
-    password: password
+    password: password,
+    allowStudentChoices: allowStudentChoices,
+    companyChoices: companyChoices
   }).save();
 
   req.login(newAdmin, (err) => {

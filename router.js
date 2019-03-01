@@ -21,8 +21,9 @@ module.exports = function(app) {
     res.send(req.user);
   });
 
-
   app.get("/api/companies", requireStudentAuth, StudentActions.getCompanies);
+
+  app.patch("/api/updateStudent", requireStudentAuth, StudentActions.updateStudent);
 
   // admin auth routes
   app.post("/auth/admin/signup", Authentication.adminSignup, (req, res, next) => {
@@ -33,7 +34,7 @@ module.exports = function(app) {
     res.send(req.user);
   });
 
-  app.patch("/auth/admin/updateCompanies", requireAdminAuth, AdminActions.updateCompanies);
+  app.patch("/api/admin/updateCompanies", requireAdminAuth, AdminActions.updateCompanies);
 
   app.get("/api/current_admin", requireAdminAuth, (req, res) => {
     res.send(req.user);
