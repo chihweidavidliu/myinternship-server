@@ -1,4 +1,5 @@
 const Authentication = require("./controllers/authentication");
+const AdminActions = require("./controllers/adminActions");
 const passportService = require("./services/passport");
 const passport = require("passport");
 
@@ -27,6 +28,8 @@ module.exports = function(app) {
   app.post("/auth/admin/signin", requireAdminLogin, (req, res, next) => {
     res.send(req.user);
   });
+
+  app.patch("/auth/admin/updateCompanies", requireAdminAuth, AdminActions.updateCompanies);
 
   app.get("/api/current_admin", requireAdminAuth, (req, res) => {
     res.send(req.user);

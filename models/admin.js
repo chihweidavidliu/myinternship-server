@@ -18,8 +18,7 @@ let AdminSchema = new mongoose.Schema({
     minlength: 6
   },
   companyChoices: {
-    type: Object,
-    require: false
+    type: Object
   },
   allowStudentSignup: {
     type: Boolean,
