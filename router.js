@@ -1,5 +1,6 @@
 const Authentication = require("./controllers/authentication");
 const AdminActions = require("./controllers/adminActions");
+const StudentActions = require("./controllers/studentActions");
 const passportService = require("./services/passport");
 const passport = require("passport");
 
@@ -19,6 +20,9 @@ module.exports = function(app) {
   app.get("/api/current_user", requireStudentAuth, (req, res) => {
     res.send(req.user);
   });
+
+
+  app.get("/api/companies", requireStudentAuth, StudentActions.getCompanies);
 
   // admin auth routes
   app.post("/auth/admin/signup", Authentication.adminSignup, (req, res, next) => {
