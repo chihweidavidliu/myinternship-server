@@ -211,12 +211,12 @@ describe("GET /api/current_admin", () => {
   });
 });
 
-describe("PATCH /api/admin/updateCompanies", () => {
+describe("PATCH /api/updateAdmin", () => {
   it("should update companies", (done) => {
     admin
-      .patch("/api/admin/updateCompanies")
+      .patch("/api/updateAdmin")
       .send({
-        companies: {
+        companyChoices: {
           Google: { numberAccepted: 3, choices: [] },
           Apple: { numberAccepted: 3, choices: [] },
           Deliveroo: { numberAccepted: 3, choices: [] }
@@ -235,9 +235,33 @@ describe("PATCH /api/admin/updateCompanies", () => {
           .catch((err) => done(err));
       });
   });
+
+  it("should update allowStudentSignup and allowStudentChoices", (done) => {
+    admin
+      .patch("/api/updateAdmin")
+      .send({
+        allowStudentSignup: false,
+        allowStudentChoices: false
+      })
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.allowStudentSignup).toBe(false);
+        expect(res.body.allowStudentChoices).toBe(false);
+      })
+      .end((err, res) => {
+        Admin.findOne({})
+          .then((admin) => {
+            expect(admin.allowStudentSignup).toBe(false);
+            expect(admin.allowStudentChoices).toBe(false);
+            done();
+          })
+          .catch((err) => done(err));
+      });
+  });
+
   it("shouldn't let unauthorised user get admin details", (done) => {
     request(app)
-      .patch("/api/admin/updateCompanies")
+      .patch("/api/updateAdmin")
       .expect(401)
       .end(done);
   });

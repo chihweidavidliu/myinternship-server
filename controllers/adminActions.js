@@ -1,13 +1,16 @@
+const _ = require("lodash");
 const Admin = require("../models/admin");
 
-module.exports.updateCompanies = async (req, res, next) => {
+
+module.exports.updateAdmin = async (req, res, next) => {
   try {
-    const updatedCompanies = req.body.companies;
+    const body = _.pick(req.body, ["companyChoices", "allowStudentSignup", "allowStudentChoices"]);
+
     const updatedAdmin = await Admin.findOneAndUpdate(
       {
         _id: req.user._id
       },
-      { $set: { companyChoices: updatedCompanies } },
+      { $set: body },
       { new: true }
     );
 

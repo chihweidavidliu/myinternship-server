@@ -34,7 +34,7 @@ module.exports = function(app) {
     res.send(req.user);
   });
 
-  app.patch("/api/admin/updateCompanies", requireAdminAuth, AdminActions.updateCompanies);
+  app.patch("/api/updateAdmin", requireAdminAuth, AdminActions.updateAdmin);
 
   app.get("/api/current_admin", requireAdminAuth, (req, res) => {
     res.send(req.user);
