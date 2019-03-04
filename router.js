@@ -21,6 +21,8 @@ module.exports = function(app) {
     res.send(req.user);
   });
 
+  app.get("/api/signupAuth", StudentActions.getSignupAuthState);
+
   app.get("/api/companies", requireStudentAuth, StudentActions.getCompanies);
 
   app.patch("/api/updateStudent", requireStudentAuth, StudentActions.updateStudent);

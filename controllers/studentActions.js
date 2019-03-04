@@ -32,3 +32,12 @@ module.exports.updateStudent = async (req, res, next) => {
     res.status(400).send(err);
   }
 };
+
+module.exports.getSignupAuthState = async (req, res, next) => {
+  try {
+    const admin = await Admin.findOne({});
+    res.send(admin.allowStudentSignup);
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};
