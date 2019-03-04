@@ -5,7 +5,7 @@ const nodemailer = require("nodemailer");
 
 exports.sendWelcomeEmail = (req, res, next) => {
   // don't send email when testing
-  if(proces.env.NODE_ENV === "test") { return next() }
+  if(process.env.NODE_ENV === "test") { return next() }
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -86,7 +86,7 @@ exports.adminSignup = async (req, res, next) => {
 
   const admins = await Admin.find({});
   if(admins.length > 0) {
-    return res.status(400).send("There is already an admininistrative account set");
+    return res.status(400).send({ message: "admin already exists" });
   }
 
   const newAdmin = await new Admin({
