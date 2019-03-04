@@ -24,3 +24,16 @@ module.exports.updateAdmin = async (req, res, next) => {
     res.status(400).send(err);
   }
 };
+
+module.exports.checkNumberOfAdmins = async (req, res, next) => {
+  try {
+    const admin = await Admin.findOne({});
+    if(admin) {
+      res.send("1")
+    } else {
+      res.send("0")
+    }
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};

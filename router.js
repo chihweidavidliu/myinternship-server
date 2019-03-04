@@ -42,6 +42,8 @@ module.exports = function(app) {
     res.send(req.user);
   });
 
+  app.get("/api/numberOfAdmins", AdminActions.checkNumberOfAdmins);
+
   app.get("/auth/logout", (req, res) => {
     req.logout();
     res.redirect("/");
