@@ -5,7 +5,9 @@ const nodemailer = require("nodemailer");
 
 exports.sendWelcomeEmail = (req, res, next) => {
   // don't send email when testing
-  if(process.env.NODE_ENV === "test") { return next() }
+  if (process.env.NODE_ENV === "test") {
+    return next();
+  }
 
   const transporter = nodemailer.createTransport({
     service: "gmail",
@@ -68,24 +70,30 @@ exports.studentSignup = async (req, res, next) => {
 };
 
 exports.adminSignup = async (req, res, next) => {
+  const adminSecret = req.body.adminSecret;
   const username = req.body.username;
   const password = req.body.password;
+
+  if (adminSecret !== process.env.ADMIN_SECRET) {
+    return res.status(404).send({ message: "incorrect adminSecret" });
+  }
+
   let allowStudentChoices;
-  if(req.body.allowStudentChoices) {
+  if (req.body.allowStudentChoices) {
     allowStudentChoices = req.body.allowStudentChoices;
   } else {
     allowStudentChoices = false;
   }
 
   let companyChoices;
-  if(req.body.companyChoices) {
+  if (req.body.companyChoices) {
     companyChoices = req.body.companyChoices;
   } else {
     companyChoices = [];
   }
 
   const admins = await Admin.find({});
-  if(admins.length > 0) {
+  if (admins.length > 0) {
     return res.status(400).send({ message: "admin already exists" });
   }
 
