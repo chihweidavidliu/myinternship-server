@@ -173,8 +173,16 @@ describe("POST /auth/admin/signup", () => {
   it("should not allow creation of second admin", (done) => {
     request(app)
       .post("/auth/admin/signup")
-      .send({ username: "admin2", password: "1521993" })
+      .send({ username: "admin2", password: "1521993", adminSecret: process.env.ADMIN_SECRET })
       .expect(400)
+      .end(done);
+  });
+
+  it("should return 404 if admin secret is incorrect", (done) => {
+    request(app)
+      .post("/auth/admin/signup")
+      .send({ username: "admin2", password: "1521993", adminSecret: "3" })
+      .expect(404)
       .end(done);
   });
 });

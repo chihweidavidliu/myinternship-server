@@ -34,7 +34,8 @@ const admins = {
   },
   allowStudentChoices: true,
   allowStudentSignup: true,
-  auth: "admin"
+  auth: "admin",
+  adminSecret: process.env.ADMIN_SECRET
 }
 
 const populateUsers = (done) => {
