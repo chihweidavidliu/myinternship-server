@@ -41,10 +41,15 @@ exports.sendWelcomeEmail = (req, res, next) => {
 };
 
 exports.studentSignup = async (req, res, next) => {
+  const institutionCode = req.body.institutionCode;
   const studentid = req.body.studentid;
   const password = req.body.password;
   const name = req.body.name;
   const department = req.body.department;
+
+  if(institutionCode !== process.env.INSTITUTION_CODE) {
+    return res.status(404).send({ message: "incorrect institution code" });
+  }
 
   const existingUser = await User.findOne({ studentid: studentid });
 

@@ -38,7 +38,13 @@ describe("POST auth/signup", () => {
   it("should save a new user and respond with 200 and the user", (done) => {
     request(app)
       .post("/auth/signup")
-      .send({ studentid: "123456", name: "David", password: "sdgasgage", department: "Trade" })
+      .send({
+        institutionCode: "jinwen",
+        studentid: "123456",
+        name: "David",
+        password: "sdgasgage",
+        department: "Trade"
+      })
       .expect(200)
       .expect((res) => {
         expect(res.body.studentid).toBe("123456");
@@ -60,6 +66,14 @@ describe("POST auth/signup", () => {
           })
           .catch((err) => done(err));
       });
+  });
+
+  it("should not allow signup if incorrect institutionCode supplied", (done) => {
+    request(app)
+      .post("/auth/signup")
+      .send({ institutionCode: "d", studentid: "123456", name: "David", password: "sdgasgage", department: "Trade" })
+      .expect(404)
+      .end(done);
   });
 });
 
@@ -296,7 +310,7 @@ describe("GET /api/numberOfAdmins", () => {
         expect(res.text).toBe("1");
       })
       .end(done);
-  })
+  });
 });
 
 describe("GET /api/logout", () => {
