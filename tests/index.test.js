@@ -108,6 +108,18 @@ describe("GET /api/current_user", () => {
   });
 });
 
+describe("GET /api/signupAuth", () => {
+  it("should return signup status", (done) => {
+    agent
+      .get("/api/signupAuth")
+      .expect(200)
+      .expect((res) => {
+        expect(res.text).toBe("true");
+      })
+      .end(done);
+  });
+});
+
 describe("GET /api/companies", () => {
   it("should send companies when logged in", (done) => {
     agent
@@ -273,6 +285,18 @@ describe("PATCH /api/updateAdmin", () => {
       .expect(401)
       .end(done);
   });
+});
+
+describe("GET /api/numberOfAdmins", () => {
+  it("should send the number of admins", (done) => {
+    admin
+      .get("/api/numberOfAdmins")
+      .expect(200)
+      .expect((res) => {
+        expect(res.text).toBe("1");
+      })
+      .end(done);
+  })
 });
 
 describe("GET /api/logout", () => {
