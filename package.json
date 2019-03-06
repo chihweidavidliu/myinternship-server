@@ -5,7 +5,12 @@
   "main": "index.js",
   "scripts": {
     "test": "NODE_ENV=test jest --detectOpenHandles",
-    "dev": "nodemon index.js"
+    "dev": "nodemon index.js",
+    "start": "node index.js"
+  },
+  "engines": {
+    "node": "10.15.0",
+    "npm": "6.4.1"
   },
   "author": "",
   "license": "ISC",
