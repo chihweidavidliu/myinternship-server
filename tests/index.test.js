@@ -241,11 +241,11 @@ describe("PATCH /api/updateAdmin", () => {
     admin
       .patch("/api/updateAdmin")
       .send({
-        companyChoices: {
-          Google: { numberAccepted: 3, choices: [] },
-          Apple: { numberAccepted: 3, choices: [] },
-          Deliveroo: { numberAccepted: 3, choices: [] }
-        }
+        companyChoices: [
+          { name: "Google", numberAccepted: 3, choices: [] },
+          { name: "Apple", numberAccepted: 3, choices: [] },
+          { name: "Deliveroo", numberAccepted: 3, choices: [] }
+        ]
       })
       .expect(200)
       .expect((res) => {
@@ -254,7 +254,7 @@ describe("PATCH /api/updateAdmin", () => {
       .end((err, res) => {
         Admin.findOne({})
           .then((admin) => {
-            expect(admin.companyChoices.Deliveroo).toBeTruthy();
+            expect(admin.companyChoices[2].name).toBe("Deliveroo");
             done();
           })
           .catch((err) => done(err));
@@ -314,7 +314,7 @@ describe("GET /api/studentChoices", () => {
       })
       .end(done);
   });
-  
+
   it("should not let unauthorised users access it", (done) => {
     agent
       .get("/api/studentChoices")
