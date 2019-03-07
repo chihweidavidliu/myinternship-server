@@ -42,6 +42,8 @@ module.exports = function(app) {
     res.send(req.user);
   });
 
+  app.get("/api/studentChoices", requireAdminAuth, AdminActions.getStudentChoices);
+
   app.get("/api/numberOfAdmins", AdminActions.checkNumberOfAdmins);
 
   app.get("/auth/logout", (req, res) => {

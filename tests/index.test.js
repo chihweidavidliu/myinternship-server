@@ -184,15 +184,6 @@ describe("PATCH /api/updateStudent", () => {
   });
 });
 
-describe("GET /api/logout", () => {
-  it("should log user out", (done) => {
-    agent
-      .get("/auth/logout")
-      .expect(302)
-      .end(done);
-  });
-});
-
 // ADMIN ROUTES
 
 describe("POST /auth/admin/signup", () => {
@@ -313,9 +304,35 @@ describe("GET /api/numberOfAdmins", () => {
   });
 });
 
+describe("GET /api/studentChoices", () => {
+  it("should send student choices", (done) => {
+    admin
+      .get("/api/studentChoices")
+      .expect(200)
+      .expect((res) => {
+        expect(res.body.students).toBeTruthy();
+      })
+      .end(done);
+  });
+  
+  it("should not let unauthorised users access it", (done) => {
+    agent
+      .get("/api/studentChoices")
+      .expect(401)
+      .end(done);
+  });
+});
+
 describe("GET /api/logout", () => {
   it("should log admin out", (done) => {
     admin
+      .get("/auth/logout")
+      .expect(302)
+      .end(done);
+  });
+
+  it("should log user out", (done) => {
+    agent
       .get("/auth/logout")
       .expect(302)
       .end(done);

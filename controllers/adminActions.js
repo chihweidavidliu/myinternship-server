@@ -1,6 +1,6 @@
 const _ = require("lodash");
 const Admin = require("../models/admin");
-
+const User = require("../models/user");
 
 module.exports.updateAdmin = async (req, res, next) => {
   try {
@@ -28,11 +28,30 @@ module.exports.updateAdmin = async (req, res, next) => {
 module.exports.checkNumberOfAdmins = async (req, res, next) => {
   try {
     const admin = await Admin.findOne({});
-    if(admin) {
-      res.send("1")
+    if (admin) {
+      res.send("1");
     } else {
-      res.send("0")
+      res.send("0");
     }
+  } catch (err) {
+    res.status(400).send(err);
+  }
+};
+
+module.exports.getStudentChoices = async (req, res, next) => {
+  try {
+    const students = await User.find({});
+    // remove password
+    const mapped = students.map((student) => {
+      return {
+        studentid: student.studentid,
+        name: student.name,
+        department: student.department,
+        choices: student.choices
+      };
+    });
+
+    res.send({ students: mapped });
   } catch (err) {
     res.status(400).send(err);
   }
