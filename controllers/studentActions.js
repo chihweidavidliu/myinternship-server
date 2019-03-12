@@ -8,7 +8,9 @@ module.exports.getCompanies = async (req, res, next) => {
     if (admin.allowStudentChoices === false) {
       return res.status(400).send("choices disabled by admin");
     }
-    const companies = Object.keys(admin.companyChoices);
+    const companies = admin.companyChoices.map(company => {
+      return company.name;
+    });
     res.send({ companies: companies });
   } catch (err) {
     res.status(400).send(err);
