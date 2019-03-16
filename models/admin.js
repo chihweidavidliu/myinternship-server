@@ -1,7 +1,6 @@
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const bcrypt = require("bcryptjs");
-const CompanyChoicesSchema = require("./companyChoices");
 
 // Admin schema
 
