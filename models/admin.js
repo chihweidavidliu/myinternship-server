@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const _ = require("lodash");
 const bcrypt = require("bcryptjs");
+const CompanyChoicesSchema = require("./companyChoices");
 
 // Admin schema
 
@@ -17,9 +18,7 @@ let AdminSchema = new mongoose.Schema({
     require: true,
     minlength: 6
   },
-  companyChoices: {
-    type: Array
-  },
+  companyChoices: [],
   allowStudentSignup: {
     type: Boolean,
     default: true
