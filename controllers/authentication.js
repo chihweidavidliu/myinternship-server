@@ -10,15 +10,15 @@ exports.sendWelcomeEmail = (req, res, next) => {
   }
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    service: "Mailgun",
     auth: {
-      user: "chihweiliu1993@gmail.com",
+      user: "postmaster@sandbox0cd2963b518c4522975119f747446c1a.mailgun.org",
       pass: process.env.EMAIL_PASSWORD
     }
   });
 
   const mailOptions = {
-    from: "chihweiliu1993@gmail.com",
+    from: "postmaster@sandbox0cd2963b518c4522975119f747446c1a.mailgun.org",
     to: "chihweiliu1993@gmail.com",
     subject: "Your Myinternship sign-in credentials",
     html: `Dear ${req.body["name"]},
@@ -32,7 +32,7 @@ exports.sendWelcomeEmail = (req, res, next) => {
 
   transporter.sendMail(mailOptions, function(error, info) {
     if (error) {
-      next(errors);
+      next(error);
     } else {
       console.log("Email sent: " + info.response);
       next();
