@@ -12,8 +12,8 @@ exports.sendWelcomeEmail = (req, res, next) => {
   const transporter = nodemailer.createTransport({
     service: "Mailgun",
     auth: {
-      user: "postmaster@sandbox0cd2963b518c4522975119f747446c1a.mailgun.org",
-      pass: process.env.EMAIL_PASSWORD
+      user: process.env.MAILGUN_USERNAME,
+      pass: process.env.MAILGUN_PASSWORD
     }
   });
 
