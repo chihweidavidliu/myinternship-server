@@ -18,7 +18,7 @@ exports.sendWelcomeEmail = (req, res, next) => {
   });
 
   const mailOptions = {
-    from: "postmaster@sandbox0cd2963b518c4522975119f747446c1a.mailgun.org",
+    from: process.env.MAILGUN_USERNAME,
     to: "chihweiliu1993@gmail.com",
     subject: "Your Myinternship sign-in credentials",
     html: `Dear ${req.body["name"]},
