@@ -10,7 +10,8 @@ exports.sendWelcomeEmail = (req, res, next) => {
   }
 
   const transporter = nodemailer.createTransport({
-    service: "Mailgun",
+    host: process.env.EMAIL_HOST,
+    port: 587,
     auth: {
       user: process.env.MAILGUN_USERNAME,
       pass: process.env.MAILGUN_PASSWORD
