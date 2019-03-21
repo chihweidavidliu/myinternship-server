@@ -18,26 +18,50 @@ exports.sendWelcomeEmail = (req, res, next) => {
     }
   });
 
+  if (process.env.NODE_ENV === "production") {
+    process.env.EMAIL_TARGET = `s${req.body.studentid}@just.edu.tw`;
+  }
+
   const mailOptions = {
     from: process.env.MAILGUN_USERNAME,
-    to: "chihweiliu1993@gmail.com",
-    subject: "Your Myinternship sign-in credentials",
-    html: `Dear ${req.body["name"]},
-    <p>Thank you for signing up to Myinternship.<br>
-    Here are your sign-in credentials. Please keep them safe.<br>
-    <p>Your <strong>studentid</strong> is ${req.body["studentid"]}<br>
-    Your <strong>password</strong> is ${req.body["password"]}<br></p></p>
-      <br>
-      From the Myinternship Team`
+    to: process.env.EMAIL_TARGET,
+    subject: "您已完成學生實習報名", // myInternship sign-up details
+    html: `${req.body["name"]},
+    <p>您已完成學生實習報名。請於面談後，再上網選取志願。您填寫的資料如下。</p>
+    <p>
+      <strong>您的學號是: </strong>${req.body["studentid"]}<br>
+      <strong>您的密碼是: </strong>${req.body["password"]}<br>
+    </p>
+    <p>＊＊＊本信件由系統自動產生，請勿回覆。＊＊＊</p>
+    <p>From the Myinternship Team</p>`
   };
 
   transporter.sendMail(mailOptions, function(error, info) {
     if (error) {
-      next(error);
-    } else {
+      return next(error);
+    }
+    console.log("Email sent: " + info.response);
+    // send confirmation to Admin
+    const mailOptions2 = {
+      from: process.env.MAILGUN_USERNAME,
+      to: process.env.ADMIN_EMAIL,
+      subject: "MyInternship signup notification", // myInternship sign-up details
+      html: `Dear admin,
+          <p>${req.body["name"]} has just signed up to MyInternship and has received a confirmation email.</p>
+          <p>
+            <strong>Studentid: </strong>${req.body["studentid"]}<br>
+            <strong>Password: </strong>${req.body["password"]}<br>
+          </p>
+          <p>From the Myinternship Team</p>`
+    };
+
+    transporter.sendMail(mailOptions2, function(error, info) {
+      if (error) {
+        return next(error);
+      }
       console.log("Email sent: " + info.response);
       next();
-    }
+    });
   });
 };
 
@@ -48,7 +72,7 @@ exports.studentSignup = async (req, res, next) => {
   const name = req.body.name;
   const department = req.body.department;
 
-  if(institutionCode !== process.env.INSTITUTION_CODE) {
+  if (institutionCode !== process.env.INSTITUTION_CODE) {
     return res.status(404).send({ message: "incorrect institution code" });
   }
 
