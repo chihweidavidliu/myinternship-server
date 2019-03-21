@@ -18,8 +18,11 @@ exports.sendWelcomeEmail = (req, res, next) => {
     }
   });
 
-  if (process.env.NODE_ENV === "production") {
+  if (process.env.NODE_ENV === "production" && process.env.SEND_MAILS === "true") {
     process.env.EMAIL_TARGET = `s${req.body.studentid}@just.edu.tw`;
+  } else if (process.env.NODE_ENV === "production" && process.env.SEND_MAILS === "false") {
+    // if still playing about in production mode, SEND_MAILS set to false will merely email the admin
+    process.env.EMAIL_TARGET = process.env.ADMIN_EMAIL;
   }
 
   const mailOptions = {
