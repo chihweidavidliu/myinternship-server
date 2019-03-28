@@ -11,6 +11,8 @@ function SessionConstructor(userId, userGroup, details) {
 
 // serializeUser creates some unique identifying piece of information about a user (like a jwt token does) and lets us put it in a cookie
 passport.serializeUser((user, done) => {
+  // because we have more than one type of user we will need to pass on some extra information, not just user id so that when
+  // we come to deserialize the user we can identify which database to access
   const userPrototype = Object.getPrototypeOf(user);
 
   let userGroup;
