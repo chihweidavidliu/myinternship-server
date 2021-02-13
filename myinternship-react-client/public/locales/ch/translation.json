@@ -1,0 +1,155 @@
+{
+  "title": "學生實習系統",
+  "loading": "正在載入",
+  "studentForms": {
+    "toggleForm": {
+      "signInMessage": "點選來登入",
+      "signUpMessage": "點選報名",
+      "signInPrompt": "已經報名?",
+      "signUpPrompt": "尚未報名?"
+    },
+    "placeholders": {
+      "institutionCode": "學校英文縮寫(小寫) ",
+      "studentid": "學號",
+      "name": "姓名",
+      "password": "密碼",
+      "department": "系別",
+      "signup": "報名",
+      "signin": "登入"
+    },
+    "formErrors": {
+      "institutionCode": {
+        "missing": "必須輸入學校英文縮寫(小寫)",
+        "incorrect": "你所輸入的學校英文縮寫不正確."
+      },
+      "studentid": { "missing": "請輸入學號", "initialS": "學號不要加 s", "duplicateId": "此學號已完成報名。" },
+      "name": { "missing": "請輸入姓名" },
+      "password": { "missing": "請輸入密碼", "tooShort": "密碼長度必須至少6個字元" },
+      "department": { "missing": "請選擇系別" },
+      "errorHeader": "錯誤",
+      "signupFailure": "登入產生錯誤,請稍後再試,或與系統管理員聯絡。",
+      "signinFailure": "登入產生錯誤,請檢查使用者名稱或密碼。"
+    },
+    "departments": {
+      "Business": "企管系",
+      "Trade": "國貿系",
+      "Finance": "財金系",
+      "Management": "資管系",
+      "Systems": "行流系"
+    },
+    "signupModal": {
+      "errorTitle": "輸入錯誤",
+      "title": "請確認所輸入的資料",
+      "cancel": "取消",
+      "dismiss": "重試",
+      "confirm": "確認"
+    }
+  },
+  "adminForms": {
+    "placeholders": {
+      "username": "系統管理員名稱",
+      "password": "密碼",
+      "adminSecret": "系統管理員密碼"
+    },
+    "formErrors": {
+      "adminSecret": { "missing": "請輸入系統管理員密碼" },
+      "username": {
+        "missing": "必須輸入系統管理員名稱",
+        "adminExists": "系統管理員已註冊。只允許一名系統管理員。"
+      },
+      "password": { "missing": "請輸入密碼", "tooShort": "密碼長度必須至少6個字元" },
+      "wrongAdminSecret": "你所輸入的系統管理員密碼不正確。",
+      "signupFailure": "報名失敗。",
+      "signinFailure": "登入失敗。 請檢查登入資料是否正確或與系助理聯絡。"
+    }
+  },
+  "dashboard": {
+    "welcome": "歡迎",
+    "signout": "退出",
+    "header": "學生實習志願",
+    "choicesDisabled": { "header": "Welcome" },
+    "choices": "志願",
+    "choicesPrompt": "系統會自動儲存您選取的志願。選取完畢，請按下方確認鍵。",
+    "options": "公司名稱",
+    "optionsPrompt": "請將欲選取之公司名稱拖曳到左邊之長方格內。",
+    "choicesConfirmation": {
+      "buttonText": "確認",
+      "header": "請確認您選取的志願",
+      "noChoicesPrompt": "您未選取任何志願，代表您放棄實習。請確認放棄實習。",
+      "choicesPrompt": "您填寫的志願如下 :",
+      "downloadInstructions": "志願選取完畢，系統會產生一個PDF檔案供您確認。",
+      "signSlipPrompt": "請簽名，務必於期限內將本實習志願表交給企管系助理。",
+      "downloadingPdf": "正在產生並下載一個PDF檔案",
+      "confirmationSlip": {
+        "header": "學生實習志願表",
+        "renounce": "茲聲明放棄本次實習",
+        "renouncePrompt": "請於下方簽名，確認放棄實習。",
+        "signature": "簽名: ....................................",
+        "confirmPrompt": "請於下方簽名，確認填寫之實習志願。",
+        "sumbitInstructions": "簽名後，請務必於期限內將本實習志願表交給企管系助理。",
+        "date": "填表日期",
+        "time": "時間"
+      }
+    },
+    "errors": {
+      "failedCompanyFetch": "抓取公司失敗",
+      "failedStudentUpdate": "更新志願失敗",
+      "choicesDisabled": { "header": "您已完成報名!", "message": "尚未開放選取志願.請於開放後,再行登入."}
+    }
+  },
+  "adminDashboard": {
+    "errors": {
+      "updateFailed": "更新失敗",
+      "fetchStudentsFailed": "無法抓取學生"
+    },
+    "companies": {
+      "navbarHeader": "公司",
+      "header": "公司錄取名單",
+      "company": "公司",
+      "numberAccepted": "錄取人數",
+      "savePrompt": "您尚未儲存所作的更動. 請記得儲存!",
+      "delete": "刪除"
+    },
+    "students": {
+      "navbarHeader": "學生",
+      "header": "學生志願",
+      "choicesEnabled": "開放學生選取志願.",
+      "choicesDisabled": "學生選取志願已關閉.請到(設定)開放學生選取志願.",
+      "choice": "錄取"
+    },
+    "sorter": {
+      "navbarHeader": "媒合",
+      "header": "媒合",
+      "startSort": "開始媒合",
+      "saveOutput": "儲存媒合結果",
+      "finalStudentOutcomes": "學生媒合結果",
+      "finalCompanyChoices": "公司錄取名單",
+      "output": {
+        "fileName": "實習媒合結果"
+      }
+    },
+    "settings": {
+      "navbarHeader": "設定",
+      "header": "設定",
+      "allowStudentSignup": "開放學生報名",
+      "allowStudentChoices": "允許學生選取志願",
+      "enabled": "開放",
+      "disabled": "關閉",
+      "deleteAll": "刪除所有公司及學生資料",
+      "deleteAllConfirm": "確定要刪除全部資料?",
+      "deleteAllSuccess": "成功刪除資料"
+    },
+    "tableActions": {
+      "addRow": "增加 列",
+      "removeRow": "移除 列",
+      "addChoice": "增加 志願",
+      "removeChoice": "移除 志願",
+      "save": "儲存"
+    },
+    "companyUpload": {
+      "header": "上傳公司資料",
+      "prompt": "請上傳一個Excel(.xlsx)檔案,該檔案資料結構如下:",
+      "submit": "上傳"
+    }
+  }
+}

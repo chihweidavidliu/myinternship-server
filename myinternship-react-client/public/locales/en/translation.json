@@ -1,0 +1,158 @@
+{
+  "title": "My Internship",
+  "loading": "Loading",
+  "studentForms": {
+    "toggleForm": {
+      "signInMessage": "Click to sign-in",
+      "signUpMessage": "Click to sign-up",
+      "signInPrompt": "Already registered?",
+      "signUpPrompt": "Not yet registered?"
+    },
+    "placeholders": {
+      "institutionCode": "Institution code",
+      "studentid": "Studentid",
+      "name": "Name",
+      "password": "Password",
+      "department": "Department",
+      "signup": "Sign up",
+      "signin": "Sign in"
+    },
+    "formErrors": {
+      "institutionCode": {
+        "missing": "An institution code is required",
+        "incorrect": "The institution code you supplied is incorrect."
+      },
+      "studentid": {
+        "missing": "A studentid is required",
+        "initialS": "Studentid should not include initial s",
+        "duplicateId": "This studentid has already been registered."
+      },
+      "name": { "missing": "A name is required" },
+      "password": { "missing": "A password is required", "tooShort": "Password must be at least 6 characters long" },
+      "department": { "missing": "A department is required" },
+      "errorHeader": "Error",
+      "signupFailure": "There was a problem signing you up. Please try again later or contact the administrator.",
+      "signinFailure": "There was a problem signing you in. Please check your credentials or contact the administrator."
+    },
+    "departments": {
+      "Business": "Business",
+      "Trade": "Trade",
+      "Finance": "Finance",
+      "Management": "Management",
+      "Systems": "Systems"
+    },
+    "signupModal": {
+      "errorTitle": "Error",
+      "title": "Please confirm your details",
+      "cancel": "Cancel",
+      "dismiss": "Dismiss",
+      "confirm": "Confirm"
+    }
+  },
+  "adminForms": {
+    "placeholders": {
+      "username": "Username",
+      "password": "Password",
+      "adminSecret": "Admin secret"
+    },
+    "formErrors": {
+      "adminSecret": { "missing": "Admin secret is required" },
+      "username": {
+        "missing": "A username is required",
+        "adminExists": "Admin has already been registered. There can only be one admin."
+      },
+      "password": { "missing": "A password is required", "tooShort": "Password must be at least 6 characters long" },
+      "wrongAdminSecret": "The Admin Secret you entered was incorrect.",
+      "signupFailure": "There was a problem signing you up.",
+      "signinFailure": "There was a problem signing you in. Please check your credentials or contact the server administrator."
+    }
+  },
+  "dashboard": {
+    "welcome": "Welcome",
+    "signout": "Log Out",
+    "header": "Internship Choices",
+    "choices": "Your Choices",
+    "choicesPrompt": "Remember to confirm your choices by clicking the button below.",
+    "options": "Companies",
+    "optionsPrompt": "Drag choices to the 'Your Choices' section",
+    "choicesConfirmation": {
+      "buttonText": "Confirm Choices",
+      "header": "Confirm Choices",
+      "noChoicesPrompt": "You have chosen not to sign up for any internships, are you sure?",
+      "choicesPrompt": "You have chosen the following companies:",
+      "downloadInstructions": "On confirmation you will be prompted to download a paper confirmation form.",
+      "signSlipPrompt": "Please sign this and submit it to the internship coordinator.",
+      "downloadingPdf": "Downloading PDF",
+      "confirmationSlip": {
+        "header": "Confirmation of Choices",
+        "renounce": "I confirm that I do not wish to apply for any internships",
+        "renouncePrompt": "Please sign below to confirm your withdrawal:",
+        "signature": "Signature: ....................................",
+        "confirmPrompt": "Please sign below to confirm your choices:",
+        "sumbitInstructions": "Please submit this slip to the internship administrator by the due date.",
+        "date": "Date",
+        "time": "Time"
+      }
+    },
+    "errors": {
+      "failedCompanyFetch": "Error fetching companies",
+      "failedStudentUpdate": "Error updating choices",
+      "choicesDisabled": { "header": "Sign-up complete", "message": "The administrator has not yet activated internship choices. Please sign-in again later to make your choices." }
+    }
+  },
+  "adminDashboard": {
+    "errors": {
+      "updateFailed": "Update failed",
+      "fetchStudentsFailed": "Unable to fetch students"
+    },
+    "companies": {
+      "navbarHeader": "Companies",
+      "header": "Company Choices",
+      "company": "Company",
+      "numberAccepted": "Number Accepted",
+      "savePrompt": "You have unsaved changes. Remember to save!",
+      "delete": "Delete"
+    },
+    "students": {
+      "navbarHeader": "Students",
+      "header": "Student Choices",
+      "choicesEnabled": "Student choices are enabled.",
+      "choicesDisabled": "Student choices are disabled. Go to settings to enable.",
+      "choice": "Choice"
+    },
+    "sorter": {
+      "navbarHeader": "Sorter",
+      "header": "Sorter",
+      "startSort": "Start Sort",
+      "saveOutput": "Save Output",
+      "finalStudentOutcomes": "Final Student Outcomes",
+      "finalCompanyChoices": "Final Company Choices",
+      "output": {
+        "fileName": "MyInternship Results"
+      }
+    },
+    "settings": {
+      "navbarHeader": "Settings",
+      "header": "Settings",
+      "allowStudentSignup": "Allow Student Signup",
+      "allowStudentChoices": "Allow Student Choices",
+      "enabled": "Enabled",
+      "disabled": "Disabled",
+      "deleteAll": "Delete all Companies and Students",
+      "deleteAllConfirm": "Are you sure you want to clear all data?",
+      "deleteAllSuccess": "Deletion Successful"
+    },
+    "tableActions": {
+      "addRow": "Add Row",
+      "removeRow": "Remove Row",
+      "addChoice": "Add Choice",
+      "removeChoice": "Remove Choice",
+      "save": "Save"
+    },
+    "companyUpload": {
+      "header": "Import Companies",
+      "prompt": "Please upload an Excel (.xlsx) file with the following structure:",
+      "submit": "Submit"
+    }
+  }
+}
