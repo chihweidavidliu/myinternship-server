@@ -41,6 +41,8 @@ module.exports = function(app) {
   app.get("/api/studentChoices", requireAdminAuth, AdminActions.getStudentChoices);
   app.get("/api/numberOfAdmins", AdminActions.checkNumberOfAdmins);
 
+  app.delete("/api/all", requireAdminAuth, AdminActions.deleteAll);
+
   // logout route for all users
   app.get("/auth/logout", (req, res) => {
     req.logout();

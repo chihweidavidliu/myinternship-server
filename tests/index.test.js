@@ -5,8 +5,6 @@ const agent = request.agent(app); // set up agent for session testing
 const admin = request.agent(app);
 
 // stuff for testing database
-const { ObjectID } = require("mongodb");
-const mongoose = require("mongoose");
 const User = require("../models/user.js");
 const Admin = require("../models/admin.js");
 const { users, populateUsers, admins, populateAdmins } = require("./seed/seed.js");
@@ -39,7 +37,7 @@ describe("POST auth/signup", () => {
     request(app)
       .post("/auth/signup")
       .send({
-        institutionCode: "jinwen",
+        institutionCode: "just",
         studentid: "123456",
         name: "David",
         password: "sdgasgage",
@@ -59,6 +57,8 @@ describe("POST auth/signup", () => {
 
         User.findOne({ _id: res.body._id })
           .then((user) => {
+
+            console.log('user', user)
             expect(user.studentid).toBe("123456");
             expect(user.name).toBe("David");
             expect(user.department).toBe("Trade");
@@ -235,6 +235,52 @@ describe("GET /api/current_admin", () => {
       .end(done);
   });
 });
+
+describe("DELETE /api/all", () => {
+  it("should return 401 if user is not admin", (done) => {
+    request(app)
+      .delete("/api/all")
+      .expect(401)
+      .end(done);
+
+    agent
+      .delete("/api/all")
+      .expect(401)
+      .end(done);
+  });
+
+  it("should return 200 and delete all companies and students user is admin", async (done) => {
+
+    const adminDoc = await Admin.findOne({ username: "admin" });
+    const companyChoices = adminDoc.companyChoices;
+    expect(companyChoices.length).toBeGreaterThan(0);
+
+    const users = await User.find({});
+    expect(users.length).toBeGreaterThan(0);
+
+    admin
+      .delete("/api/all")
+      .send()
+      .expect(200)
+      .end(async (err, res) => {
+        if (err) {
+          done(err);
+        }
+
+        try {
+          const users = await User.find({});
+          expect(users.length).toEqual(0);
+  
+          const adminDoc = await Admin.findOne({ username: "admin" });
+          const companyChoices = adminDoc.companyChoices;
+          expect(companyChoices.length).toEqual(0);
+          done()
+        } catch (error) {
+          done(error);
+        }
+      });
+  });
+})
 
 describe("PATCH /api/updateAdmin", () => {
   it("should update companies", (done) => {

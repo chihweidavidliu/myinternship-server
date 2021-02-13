@@ -56,3 +56,22 @@ module.exports.getStudentChoices = async (req, res, next) => {
     res.status(400).send(err);
   }
 };
+
+module.exports.deleteAll = async (req, res, next) => {
+  try {
+    await User.deleteMany({});
+
+    await Admin.findOneAndUpdate(
+      {
+        _id: req.user._id
+      },
+      { $set: { companyChoices: []} },
+      { new: true }
+    );
+
+    res.send({ success: true, message: "All Companies and Students deleted"});
+
+  } catch (error) {
+    res.status(400).send(err);
+  }
+}
