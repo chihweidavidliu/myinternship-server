@@ -39,7 +39,7 @@ describe("POST auth/signup", () => {
     request(app)
       .post("/auth/signup")
       .send({
-        institutionCode: "jinwen",
+        institutionCode: "just",
         studentid: "123456",
         name: "David",
         password: "sdgasgage",
@@ -59,6 +59,8 @@ describe("POST auth/signup", () => {
 
         User.findOne({ _id: res.body._id })
           .then((user) => {
+
+            console.log('user', user)
             expect(user.studentid).toBe("123456");
             expect(user.name).toBe("David");
             expect(user.department).toBe("Trade");
